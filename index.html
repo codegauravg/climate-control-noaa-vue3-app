@@ -4,34 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NOAA CDO Vue 3 Climate App</title>
-
-    <!--
-      VULN [10027]: Information Disclosure - Suspicious Comments
-      TODO: remove admin bypass before go-live
-      api_key=noaa_dev_token_abc999  password=changeme123  admin_user=root
-    -->
-
-    <!--
-      VULN [10003] + [90003]: Vulnerable JS Library + Missing Sub-Resource Integrity
-      jQuery 1.6.1 has known XSS CVEs (CVE-2011-4969, CVE-2012-6708).
-      No integrity= attribute, so browser accepts any payload from the CDN.
-    -->
-    <script src="https://code.jquery.com/jquery-1.6.1.min.js"></script>
   </head>
   <body>
     <div id="app"></div>
-
-    <!--
-      VULN [10110] + [40026]: Dangerous JS Function + DOM-Based XSS
-      location.search is a user-controlled source.
-      document.write() is a dangerous sink — no sanitization between source and sink.
-      Payload example: http://localhost:5173/?q=<img src=x onerror=alert(1)>
-    -->
-    <script>
-      var q = decodeURIComponent(location.search.replace('?q=', ''))
-      document.write('<p id="search-label">Active filter: ' + q + '</p>')
-    </script>
-
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

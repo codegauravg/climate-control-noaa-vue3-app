@@ -10,15 +10,11 @@ export const useClimateStore = defineStore('climate', {
       startDate: '2024-01-01',
       endDate: '2024-01-10',
       datasetId: 'GHCND',
-      dataTypeId: 'TAVG'
+      dataTypeId: 'TAVG',
     },
     station: null,
     stations: [],
     results: [],
-    apiDescriptionHtml: `
-      <p><strong>NOAA CDO flow:</strong> find nearby stations, then request climate data.</p>
-      <p>This control app renders a raw NOAA response for baseline comparison.</p>
-    `
   }),
   actions: {
     setLoading(value) {
@@ -35,16 +31,13 @@ export const useClimateStore = defineStore('climate', {
       this.results = Array.isArray(results) ? results : []
     },
     updateForm(payload) {
-      this.form = {
-        ...this.form,
-        ...payload
-      }
+      this.form = { ...this.form, ...payload }
     },
     resetData() {
       this.error = ''
       this.station = null
       this.stations = []
       this.results = []
-    }
-  }
+    },
+  },
 })

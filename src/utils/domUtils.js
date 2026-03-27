@@ -1,34 +1,21 @@
 /**
- * domUtils.js — intentionally vulnerable utilities for OWASP ZAP thesis demonstration.
+ * domUtils.js — safe DOM utilities (hardened version).
  *
- * VULN [10110]: Dangerous JS Functions
- *   eval() is flagged by ZAP's passive scanner as a dangerous sink that can execute
- *   arbitrary code if the argument is user-controlled.
- *
- * VULN [40026]: DOM-Based XSS
- *   renderSearchLabel() reads from location.search (user-controlled source) and writes
- *   to innerHTML without sanitization (dangerous sink).
+ * All functions use textContent or createElement — never innerHTML,
+ * document.write, or eval — to eliminate DOM-based XSS attack surfaces.
  */
 
 /**
- * Evaluates a user-supplied climate filter expression.
- * Intentionally uses eval() — ZAP rule 10110.
+ * Safely sets the text content of a DOM element.
+ * Uses textContent so no HTML is parsed; any injected markup is rendered
+ * as literal text rather than executed.
+ *
+ * @param {string} elementId
+ * @param {string} text
  */
-export function evalFilterExpression(expression) {
-  return eval(expression)
-}
-
-/**
- * Renders the ?q= URL parameter directly into the DOM.
- * Source: location.search (user-controlled)
- * Sink:   innerHTML (executes injected HTML/JS)
- * ZAP rule 40026 (DOM-Based XSS).
- */
-export function renderSearchLabel(elementId) {
-  const params = new URLSearchParams(window.location.search)
-  const query = params.get('q') || ''
+export function setElementText(elementId, text) {
   const el = document.getElementById(elementId)
   if (el) {
-    el.innerHTML = 'Showing results for: ' + query
+    el.textContent = String(text)
   }
 }

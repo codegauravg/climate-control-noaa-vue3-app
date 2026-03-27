@@ -32,7 +32,7 @@
       ],
       "fixAvailable": {
         "name": "vite",
-        "version": "8.0.2",
+        "version": "8.0.3",
         "isSemVerMajor": true
       }
     },
@@ -50,7 +50,7 @@
       ],
       "fixAvailable": {
         "name": "vite",
-        "version": "8.0.2",
+        "version": "8.0.3",
         "isSemVerMajor": true
       }
     }
